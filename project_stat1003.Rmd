@@ -1,0 +1,96 @@
+---
+title: "stat1003 project"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+immunisation_step <- subset(Book2, Book2$...4 == '2016-17')
+i_data <- subset(immunisation_step, immunisation_step$...5 == '1 year')
+```
+
+
+```{r}
+a <- subset(Book3, Book3$...4 == '2016-17')
+i_data_2 <- subset(a, a$...5 == '1 year')
+```
+
+```{r}
+colnames(i_data)[1] <- 'State'
+colnames(i_data)[2] <- 'Postcode'
+colnames(i_data)[3] <- 'Associated residential area'
+colnames(i_data)[4] <- 'Reporting year'
+colnames(i_data)[5] <- 'Age group'
+colnames(i_data)[6] <- 'Percent fully immunised (%)'
+```
+
+
+```{r}
+colnames(i_data_2)[1] <- 'State'
+colnames(i_data_2)[2] <- 'SA3 code'
+colnames(i_data_2)[3] <- 'SA3 name'
+colnames(i_data_2)[4] <- 'Reporting year'
+colnames(i_data_2)[5] <- 'Age group'
+colnames(i_data_2)[6] <- 'Number of registered children'
+colnames(i_data_2)[7] <- 'Number fully immunised'
+colnames(i_data_2)[8] <- 'Number not fully immunised'
+colnames(i_data_2)[9] <- 'Percent fully immunised (%)'
+
+```
+
+```{r}
+Relgion <- G14
+rm(G14)
+```
+```{r}
+lvlEducation_F <- G46A
+lvlEducation_M <- G46B
+```
+
+```{r}
+rm(G46A)
+```
+```{r}
+library(dplyr)
+income_1 <- select(G55A,1:1,contains("_Tot"))
+income_2 <- select(G55B,1:1, contains("_Tot"))
+income <- merge(income_1, income_2)
+rm(income_1)
+rm(income_2)
+rm(G55A)
+rm(G55B)
+```
+
+```{r}
+income_a <- select(G56A,1:1, contains("_Tot"))
+income_b <- select(G56B,1:1, contains("_Tot"))
+income_1 <- merge(income_a, income_b)
+income_2 <- select(income_1, -contains('UnE_lfw'))
+Income <- merge(income_2, income, by='SA3_CODE_2016')
+```
+```{r}
+rm(income_a)
+rm(income_b)
+rm(income_1)
+rm(income_2)
+```
+
+```{r}
+sum(Income$NegNil_inc_Tot, Income$NegNil_Inc_Tot)
+```
+
+```{r}
+F_Income <- as.data.frame(t(rowsum(t(Income), group = rownames(t(Income)))))
+```
+
+```{r}
+Income$Income_NS <- Income$All_inc_NS_Tot.x + Income$All_inc_NS_Tot.y
+Income$Tot_1_149 <- Income$I_1_149_Tot.x + Income$I_1_149_Tot.y
+Income$Tot_1000_1249 <- Income$I_1000_1249_Tot.x + 
+
+```
+
+
