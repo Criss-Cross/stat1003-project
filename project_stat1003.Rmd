@@ -89,7 +89,16 @@ F_Income <- as.data.frame(t(rowsum(t(Income), group = rownames(t(Income)))))
 ```{r}
 Income$Income_NS <- Income$All_inc_NS_Tot.x + Income$All_inc_NS_Tot.y
 Income$Tot_1_149 <- Income$I_1_149_Tot.x + Income$I_1_149_Tot.y
-Income$Tot_1000_1249 <- Income$I_1000_1249_Tot.x + 
+Income$Tot_1000_1249 <- Income$I_1000_1249_Tot.x + Income$I_1000_1249_Tot.y
+Income$Tot_1250_1499 <- Income$I_1250_1499_Tot.x + Income$I_1250_1499_Tot.y
+Income$Tot_150_299 <- Income$I_150_299_Tot.x + Income$I_150_299_Tot.y
+Income$Tot_1500_1749 <- Income$I_1500_1749_Tot.x + Income$I_1500_1749_Tot.y
+Income$Tot_1750_1999 <- Income$I_1750_1999_Tot.x + Income$I_1750_1999_Tot.y
+Income$Tot_2000_2499 <- Income$I_2000_2499_Tot.x + Income$I_2000_2499_Tot.y
+Income$Tot_2500_2999 <- Income$I_2500_2999_Tot.x + Income$I_2500_2999_Tot.y
+Income$Tot_300_399 <- Income$I_300_399_Tot.x + Income$I_300_399_Tot.y
+Income$Tot_3000_3499 <- Income$I_3000_3499_Tot.x + Income$I_3000_3499_Tot.y
+Income$Tot_3500_3999 <- Income$I_3500_3999_Tot.x + Income$I_3500_3999_Tot.y
 
 ```
 
