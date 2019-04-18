@@ -87,6 +87,8 @@ F_Income <- as.data.frame(t(rowsum(t(Income), group = rownames(t(Income)))))
 ```
 
 ```{r}
+Income_copy <- Income
+
 Income$Income_NS <- Income$All_inc_NS_Tot.x + Income$All_inc_NS_Tot.y
 Income$Tot_1_149 <- Income$I_1_149_Tot.x + Income$I_1_149_Tot.y
 Income$Tot_1000_1249 <- Income$I_1000_1249_Tot.x + Income$I_1000_1249_Tot.y
@@ -98,8 +100,34 @@ Income$Tot_2000_2499 <- Income$I_2000_2499_Tot.x + Income$I_2000_2499_Tot.y
 Income$Tot_2500_2999 <- Income$I_2500_2999_Tot.x + Income$I_2500_2999_Tot.y
 Income$Tot_300_399 <- Income$I_300_399_Tot.x + Income$I_300_399_Tot.y
 Income$Tot_3000_3499 <- Income$I_3000_3499_Tot.x + Income$I_3000_3499_Tot.y
-Income$Tot_3500_3999 <- Income$I_3500_3999_Tot.x + Income$I_3500_3999_Tot.y
-
+Income$Tot_3500_399 <- Income$I_3500_3999_Tot.x + Income$I_3500_3999_Tot.y
+Income$Tot_400_499 <- Income$I_400_499_Tot.x + Income$I_400_499_Tot.y
+Income$Tot_4000more <- Income$I_4000more_Tot.x + Income$I_4000more_Tot.y
+Income$Tot_500_649 <- Income$I_500_649_Tot.x + Income$I_500_649_Tot.y
+Income$Tot_650_799 <- Income$I_650_799_Tot.x + Income$I_650_799_Tot.y
+Income$Tot_800_999 <- Income$I_800_999_Tot.x + Income$I_800_999_Tot.y
+Income$Tot_NegNil <- Income$NegNil_inc_Tot + Income$NegNil_Inc_Tot
+```
+```{r}
+library(dplyr)
+list.x <- select(Income, contains('.x'))
+list.y <- select(Income, contains('.y'))
+```
+```{r}
+names.x <- c(colnames(list.x))
+names.y <- c(colnames(list.y))
 ```
 
+```{r}
+Income.x <- Income[, !colnames(Income) %in% names.x]
+Income_Tot <- Income.x[, !colnames(Income.x) %in% names.y]
+```
+
+```{r}
+rm(Income.x)
+rm(names.x)
+rm(names.y)
+rm(list.x)
+rm(list.y)
+```
 
