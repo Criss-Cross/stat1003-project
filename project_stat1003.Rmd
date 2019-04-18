@@ -42,17 +42,33 @@ colnames(i_data_2)[9] <- 'Percent fully immunised (%)'
 ```
 
 ```{r}
-Relgion <- G14
-rm(G14)
-```
-```{r}
-lvlEducation_F <- G46A
-lvlEducation_M <- G46B
+# Data cleaning for religion, done 18/4/2019
+
+Religion <- X2016Census_G14_AUS_SA3
+rm(X2016Census_G14_AUS_SA3)
+
+library(dplyr)
+Religion <- select(Religion, 1:1, contains("_P"))
+
+Religion$Buddhism <- Religion$Buddhism_P
+Religion$Hinduism <- Religion$Hinduism_P
+Religion$Islam <- Religion$Islam_P
+Religion$Judaism <- Religion$Judaism_P
+Religion$Sikhism <- Religion$Othr_Rel_Sikhism_P
+Religion$AboriginalTrad <- Religion$Othr_Rel_Aust_Abor_Trad_Rel_P
+Religion$NoReligionAndSecular <- Religion$SB_OSB_NRA_NR_P + Religion$SB_OSB_NRA_SB_P
+Religion$Other <- Religion$SB_OSB_NRA_OSB_P + Religion$Othr_Reln_Other_reln_groups_P
+Religion$NotStated <- Religion$Religious_affiliation_ns_P
+Religion$JehovahWitness <- Religion$Christinty_Jehvahs_Witnses_P
+Religion$LatterDaySaints <- Religion$Christianity_Lattr_day_Snts_P
+Religion$Catholic <- Religion$Christianity_Catholic_P
+Religion$EasternChristian <- Religion$Christianity_Asyrin_Apstlic_P + Religion$Christianity_Eastrn_Orthdox_P + Religion$Christianity_Orintal_Orthdx_P
+Religion$Protestant <- Religion$Christianity_Anglican_P + Religion$Christianity_Baptist_P + Religion$Christianity_Brethren_P + Religion$Christianity_Church_Christ_P + Religion$Christianity_Lutheran_P + Religion$Christianity_Othr_Protestnt_P + Religion$Christianity_Pentecostal_P + Religion$Christinty_Prsbytrin_Refrmd_P + Religion$Christianity_Salvation_Army_P + Religion$Christnty_Sevnth_dy_Advntst_P + Religion$Christianity_Uniting_Church_P
+Religion$OtherChristian <- Religion$Christianity_Christian_nfd_P + Religion$Christianity_Othr_Christian_P
+
+Religion <- select(Religion, -contains("_"))
 ```
 
-```{r}
-rm(G46A)
-```
 ```{r}
 library(dplyr)
 income_1 <- select(G55A,1:1,contains("_Tot"))
@@ -89,7 +105,7 @@ F_Income <- as.data.frame(t(rowsum(t(Income), group = rownames(t(Income)))))
 ```{r}
 Income$Income_NS <- Income$All_inc_NS_Tot.x + Income$All_inc_NS_Tot.y
 Income$Tot_1_149 <- Income$I_1_149_Tot.x + Income$I_1_149_Tot.y
-Income$Tot_1000_1249 <- Income$I_1000_1249_Tot.x + 
+Income$Tot_1000_1249 <- Income$I_1000_1249_Tot.x +
 
 ```
 
