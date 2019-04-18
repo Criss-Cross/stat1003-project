@@ -10,12 +10,10 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r}
 immunisation_step <- subset(Book2, Book2$...4 == '2016-17')
 i_data <- subset(immunisation_step, immunisation_step$...5 == '1 year')
-```
 
-
-```{r}
 a <- subset(Book3, Book3$...4 == '2016-17')
 i_data_2 <- subset(a, a$...5 == '1 year')
+# extracting the data on babies in 2016-2017, the data we want
 ```
 
 ```{r}
@@ -25,6 +23,7 @@ colnames(i_data)[3] <- 'Associated residential area'
 colnames(i_data)[4] <- 'Reporting year'
 colnames(i_data)[5] <- 'Age group'
 colnames(i_data)[6] <- 'Percent fully immunised (%)'
+# renaming the columns in the i_data set so that they make sense
 ```
 
 
@@ -38,7 +37,7 @@ colnames(i_data_2)[6] <- 'Number of registered children'
 colnames(i_data_2)[7] <- 'Number fully immunised'
 colnames(i_data_2)[8] <- 'Number not fully immunised'
 colnames(i_data_2)[9] <- 'Percent fully immunised (%)'
-
+# renaming the columns in the i_data_2 set so that they make sense
 ```
 
 ```{r}
@@ -62,14 +61,12 @@ rm(income_1)
 rm(income_2)
 rm(G55A)
 rm(G55B)
-```
-
-```{r}
 income_a <- select(G56A,1:1, contains("_Tot"))
 income_b <- select(G56B,1:1, contains("_Tot"))
 income_1 <- merge(income_a, income_b)
 income_2 <- select(income_1, -contains('UnE_lfw'))
 Income <- merge(income_2, income, by='SA3_CODE_2016')
+#combining all of the income stuff into a single data frame
 ```
 ```{r}
 rm(income_a)
@@ -79,15 +76,13 @@ rm(income_2)
 ```
 
 ```{r}
-sum(Income$NegNil_inc_Tot, Income$NegNil_Inc_Tot)
+sum(Income$NegNil_inc_Tot, Income$NegNil_Inc_Tot) # failed attempt to sum
 ```
 
 ```{r}
 F_Income <- as.data.frame(t(rowsum(t(Income), group = rownames(t(Income)))))
-```
-
-```{r}
-Income_copy <- Income
+# A copy of Income where all the like columns are next to each other 
+Income_copy <- Income     # just incase we need the original
 
 Income$Income_NS <- Income$All_inc_NS_Tot.x + Income$All_inc_NS_Tot.y
 Income$Tot_1_149 <- Income$I_1_149_Tot.x + Income$I_1_149_Tot.y
@@ -107,20 +102,15 @@ Income$Tot_500_649 <- Income$I_500_649_Tot.x + Income$I_500_649_Tot.y
 Income$Tot_650_799 <- Income$I_650_799_Tot.x + Income$I_650_799_Tot.y
 Income$Tot_800_999 <- Income$I_800_999_Tot.x + Income$I_800_999_Tot.y
 Income$Tot_NegNil <- Income$NegNil_inc_Tot + Income$NegNil_Inc_Tot
-```
-```{r}
+# summing all of the columns from G55 and G56 that had similar data
 library(dplyr)
 list.x <- select(Income, contains('.x'))
 list.y <- select(Income, contains('.y'))
-```
-```{r}
 names.x <- c(colnames(list.x))
 names.y <- c(colnames(list.y))
-```
-
-```{r}
 Income.x <- Income[, !colnames(Income) %in% names.x]
 Income_Tot <- Income.x[, !colnames(Income.x) %in% names.y]
+# removing all of the doubled up columns that I just summed
 ```
 
 ```{r}
