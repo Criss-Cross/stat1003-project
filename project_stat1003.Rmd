@@ -7,7 +7,129 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r}
+
+```{r, echo=FALSE, results='hide', message=FALSE}
+X2016Census_G09A_AUS_SA3 <- read.csv('~/Curtin/introduction to data science/project/R stuff/2016Census_G09A_AUS_SA3.csv')
+X2016Census_G09B_AUS_SA3 <- read.csv('~/Curtin/introduction to data science/project/R stuff/2016Census_G09B_AUS_SA3.csv')
+X2016Census_G09C_AUS_SA3 <- read.csv('~/Curtin/introduction to data science/project/R stuff/2016Census_G09C_AUS_SA3.csv')
+X2016Census_G09D_AUS_SA3 <- read.csv('~/Curtin/introduction to data science/project/R stuff/2016Census_G09D_AUS_SA3.csv')
+X2016Census_G09E_AUS_SA3 <- read.csv('~/Curtin/introduction to data science/project/R stuff/2016Census_G09E_AUS_SA3.csv')
+X2016Census_G09F_AUS_SA3 <- read.csv('~/Curtin/introduction to data science/project/R stuff/2016Census_G09F_AUS_SA3.csv')
+X2016Census_G09G_AUS_SA3 <- read.csv('~/Curtin/introduction to data science/project/R stuff/2016Census_G09G_AUS_SA3.csv')
+X2016Census_G09H_AUS_SA3 <- read.csv('~/Curtin/introduction to data science/project/R stuff/2016Census_G09H_AUS_SA3.csv')
+```
+```{r,echo=FALSE, results='hide', message=FALSE}
+Country <- merge(X2016Census_G09A_AUS_SA3, X2016Census_G09B_AUS_SA3, by = 'SA3_CODE_2016')
+Country <- merge(Country, X2016Census_G09C_AUS_SA3, by = 'SA3_CODE_2016')
+Country <- merge(Country, X2016Census_G09D_AUS_SA3, by = 'SA3_CODE_2016')
+Country <- merge(Country, X2016Census_G09E_AUS_SA3, by = 'SA3_CODE_2016')
+Country <- merge(Country, X2016Census_G09F_AUS_SA3, by = 'SA3_CODE_2016')
+Country <- merge(Country, X2016Census_G09G_AUS_SA3, by = 'SA3_CODE_2016')
+Country <- merge(Country, X2016Census_G09H_AUS_SA3, by = 'SA3_CODE_2016')
+
+```
+
+```{r,echo=FALSE, results='hide', message=FALSE, warning=FALSE}
+library(dplyr)
+Country <- select(Country, 1:1, contains("Tot"))
+
+```
+```{r,echo=FALSE, results='hide', message=FALSE}
+Country$M_Tot_0_4 <- NULL
+Country$M_Tot_5_14 <- NULL
+Country$M_Tot_15_24 <- NULL
+Country$M_Tot_25_44 <- NULL
+Country$M_Tot_45_54 <- NULL
+Country$M_Tot_55_64 <- NULL
+Country$M_Tot_65_74 <- NULL
+Country$M_Tot_75_84 <- NULL
+Country$M_Tot_85ov <- NULL
+Country$F_Tot_0_4 <- NULL
+Country$F_Tot_5_14 <- NULL
+Country$F_Tot_15_24 <- NULL
+Country$F_Tot_25_44 <- NULL
+Country$F_Tot_45_54 <- NULL
+Country$F_Tot_55_64 <- NULL
+Country$F_Tot_65_74 <- NULL
+Country$F_Tot_75_84 <- NULL
+Country$F_Tot_85ov <- NULL
+```
+
+```{r,echo=FALSE, results='hide', message=FALSE}
+Country$SA3Code <- Country$SA3_CODE_2016
+Country$Afghanistan <- Country$M_Afghanistan_Tot + Country$F_Afghanistan_Tot
+Country$Australia <- Country$M_Australia_Tot + Country$F_Australia_Tot
+Country$Bangladesh <- Country$M_Bangladesh_Tot + Country$F_Bangladesh_Tot
+Country$BosniaHerzegov <- Country$M_Bosnia_Herzegov_Tot + Country$F_Bosnia_Herzegov_Tot
+Country$Cambodia <- Country$M_Cambodia_Tot + Country$F_Cambodia_Tot
+Country$Canada <- Country$M_Canada_Tot + Country$F_Canada_Tot
+Country$Chile <- Country$M_Chile_Tot + Country$F_Chile_Tot
+Country$China <- Country$M_China_Tot + Country$F_China_Tot
+Country$Croatia <- Country$M_Croatia_Tot + Country$F_Croatia_Tot
+Country$Egypt <- Country$M_Egypt_Tot + Country$F_Egypt_Tot
+Country$England <- Country$M_England_Tot + Country$F_England_Tot
+Country$Fiji <- Country$M_Fiji_Tot + Country$F_Fiji_Tot
+Country$France <- Country$M_France_Tot + Country$F_France_Tot
+Country$Germany <- Country$M_Germany_Tot + Country$F_Germany_Tot
+Country$Greece <- Country$M_Greece_Tot + Country$F_Greece_Tot
+Country$HongKong <- Country$M_Hong_Kong_Tot + Country$F_Hong_Kong_Tot
+Country$India <- Country$M_India_Tot + Country$F_India_Tot
+Country$Indonesia <- Country$M_Indonesia_Tot + Country$F_Indonesia_Tot
+Country$Iran <- Country$M_Iran_Tot + Country$F_Iran_Tot
+Country$Iraq <- Country$M_Iraq_Tot + Country$F_Iraq_Tot
+Country$Ireland <- Country$M_Ireland_Tot + Country$F_Ireland_Tot
+Country$Italy <- Country$M_Italy_Tot + Country$F_Italy_Tot
+Country$Japan <- Country$M_Japan_Tot + Country$F_Japan_Tot
+Country$SouthKorea <- Country$M_Korea_South_Tot + Country$F_Korea_South_Tot
+Country$Lebanon <- Country$M_Lebanon_Tot + Country$F_Lebanon_Tot
+Country$Malaysia <- Country$M_Malaysia_Tot + Country$F_Malaysia_Tot
+Country$Malta <- Country$M_Malta_Tot + Country$F_Malta_Tot
+Country$Mauritius <- Country$M_Mauritius_Tot + Country$F_Mauritius_Tot
+Country$Myanmar <- Country$M_Myanmar_Tot + Country$F_Myanmar_Tot
+Country$Nepal <- Country$M_Nepal_Tot + Country$F_Nepal_Tot
+Country$Netherlands <- Country$M_Netherlands_Tot + Country$F_Netherlands_Tot
+Country$NewZealand <- Country$M_New_Zealand_Tot + Country$F_New_Zealand_Tot
+Country$NorthernIreland <- Country$M_Nthern_Ireland_Tot + Country$F_Nthern_Ireland_Tot
+Country$Pakistan <- Country$M_Pakistan_Tot + Country$F_Pakistan_Tot
+Country$PapuaNewGuinea <- Country$M_PNG_Tot + Country$F_PNG_Tot
+Country$Philippines <- Country$M_Philippines_Tot + Country$F_Philippines_Tot
+Country$Poland <- Country$M_Poland_Tot + Country$F_Poland_Tot
+Country$Scotland <- Country$M_Scotland_Tot + Country$F_Scotland_Tot
+Country$Singapore <- Country$M_Singapore_Tot + Country$F_Singapore_Tot
+Country$SouthAfrica <- Country$M_South_Africa_Tot + Country$F_South_Africa_Tot
+Country$SEEuropeNFD <- Country$M_SE_Europe_nfd_Tot + Country$F_SE_Europe_nfd_Tot
+Country$SriLanka <- Country$M_Sri_Lanka_Tot + Country$F_Sri_Lanka_Tot
+Country$Taiwan <- Country$M_Taiwan_Tot + Country$F_Taiwan_Tot
+Country$Thailand <- Country$M_Thailand_Tot + Country$F_Thailand_Tot
+Country$NorthMacedonia <- Country$M_FYROM_Tot + Country$F_FYROM_Tot
+Country$Turkey <- Country$M_Turkey_Tot + Country$F_Turkey_Tot
+Country$USA <- Country$M_USA_Tot + Country$F_USA_Tot
+Country$Vietnam <- Country$M_Vietnam_Tot + Country$F_Vietnam_Tot
+Country$Wales <- Country$M_Wales_Tot + Country$F_Wales_Tot
+Country$Zimbabwe <- Country$M_Zimbabwe_Tot + Country$F_Zimbabwe_Tot
+Country$Elsewhere <- Country$M_Elsewhere_Tot + Country$F_Elsewhere_Tot
+Country$NotSpecified <- Country$M_COB_NS_Tot + Country$F_COB_NS_Tot
+Country$Total <- Country$M_Tot_Tot + Country$F_Tot_Tot
+```
+
+```{r,echo=FALSE, results='hide', message=FALSE}
+which(colnames(Country)=='SA3Code')
+which(colnames(Country)=='Afghanistan')
+which(colnames(Country)=='Total')
+```
+
+```{r,echo=FALSE, results='hide', message=FALSE}
+Country <- Country[170:223]
+```
+```{r,echo=FALSE, results='hide', message=FALSE}
+Country$SA3Code <- factor(Country$SA3Code)
+```
+
+```{r, echo=FALSE, warning=FALSE, results='hide', message=FALSE}
+library(readxl)
+Book1 <- read_excel('~/Curtin/introduction to data science/project/R stuff/Book1.xlsx')
+Book2 <- read_excel('~/Curtin/introduction to data science/project/R stuff/Book2.xlsx')
+Book3 <- read_excel('~/Curtin/introduction to data science/project/R stuff/Book3.xlsx')
 immunisation_step <- subset(Book2, Book2$...4 == '2016-17')
 i_data <- subset(immunisation_step, immunisation_step$...5 == '1 year')
 
@@ -16,7 +138,7 @@ i_data_2 <- subset(a, a$...5 == '1 year')
 # extracting the data on babies in 2016-2017, the data we want
 ```
 
-```{r}
+```{r, echo=FALSE}
 colnames(i_data)[1] <- 'State'
 colnames(i_data)[2] <- 'Postcode'
 colnames(i_data)[3] <- 'Associated residential area'
@@ -27,7 +149,7 @@ colnames(i_data)[6] <- 'Percent fully immunised (%)'
 ```
 
 
-```{r}
+```{r, echo=FALSE}
 colnames(i_data_2)[1] <- 'State'
 colnames(i_data_2)[2] <- 'SA3 code'
 colnames(i_data_2)[3] <- 'SA3 name'
@@ -40,7 +162,33 @@ colnames(i_data_2)[9] <- 'Percent fully immunised (%)'
 # renaming the columns in the i_data_2 set so that they make sense
 ```
 
+```{r, echo=FALSE, results='hide', message=FALSE}
+G14 <- read.csv('~/Curtin/introduction to data science/project/R stuff/G14.csv')
+G46A <- read.csv('~/Curtin/introduction to data science/project/R stuff/G46A.csv')
+G46B <- read.csv('~/Curtin/introduction to data science/project/R stuff/G46B.csv')
+G55A <- read.csv('~/Curtin/introduction to data science/project/R stuff/G55A.csv')
+G55B <- read.csv('~/Curtin/introduction to data science/project/R stuff/G55B.csv')
+G56A <- read.csv('~/Curtin/introduction to data science/project/R stuff/G56A.csv')
+G56B <- read.csv('~/Curtin/introduction to data science/project/R stuff/G56B.csv')
+```
+
 ```{r}
+X2016Census_G14_AUS_SA3 <- G14
+rm(G14)
+```
+
+```{r}
+G14 <- read.csv('~/Curtin/introduction to data science/project/R stuff/G14.csv')
+G46A <- read.csv('~/Curtin/introduction to data science/project/R stuff/G46A.csv')
+G46B <- read.csv('~/Curtin/introduction to data science/project/R stuff/G46B.csv')
+G55A <- read.csv('~/Curtin/introduction to data science/project/R stuff/G55A.csv')
+G55B <- read.csv('~/Curtin/introduction to data science/project/R stuff/G55B.csv')
+G56A <- read.csv('~/Curtin/introduction to data science/project/R stuff/G56A.csv')
+G56B <- read.csv('~/Curtin/introduction to data science/project/R stuff/G56B.csv')
+```
+
+
+```{r, message=FALSE, warning=FALSE, results=FALSE}
 # Data cleaning for religion, done 18/4/2019
 
 Religion <- X2016Census_G14_AUS_SA3
@@ -89,6 +237,8 @@ rm(income_a)
 rm(income_b)
 rm(income_1)
 rm(income_2)
+rm(G56A)
+rm(G56B)
 ```
 
 ```{r}
@@ -102,7 +252,7 @@ Income_copy <- Income     # just incase we need the original
 
 Income$Income_NS <- Income$All_inc_NS_Tot.x + Income$All_inc_NS_Tot.y
 Income$Tot_1_149 <- Income$I_1_149_Tot.x + Income$I_1_149_Tot.y
-Income$Tot_1000_1249 <- Income$I_1000_1249_Tot.x +
+Income$Tot_1000_1249 <- Income$I_1000_1249_Tot.x + Income$I_1000_1249_Tot.y
 Income$Tot_1000_1249 <- Income$I_1000_1249_Tot.x + Income$I_1000_1249_Tot.y
 Income$Tot_1250_1499 <- Income$I_1250_1499_Tot.x + Income$I_1250_1499_Tot.y
 Income$Tot_150_299 <- Income$I_150_299_Tot.x + Income$I_150_299_Tot.y
@@ -137,4 +287,186 @@ rm(names.y)
 rm(list.x)
 rm(list.y)
 ```
+
+```{r, warning=FALSE, results=FALSE, message=FALSE}
+library(readxl)
+UC_immune_2 <- read_excel('~/Curtin/introduction to data science/project/R stuff/UC immune_2.xlsx')
+UC_immune <- subset(UC_immune_2, UC_immune_2$...5 == '1 year')
+UC_1_immune <- subset(UC_immune, UC_immune$...4 == '2016-17')
+colnames(UC_1_immune)[2] <- 'SA3 Code'
+colnames(UC_1_immune)[3] <- 'SA3 Name'
+colnames(UC_1_immune)[4] <- 'Reporting Year'
+colnames(UC_1_immune)[5] <- 'Age Group'
+colnames(UC_1_immune)[6] <- 'Number of Registered Children'
+colnames(UC_1_immune)[7] <- 'Number Fully Immunised'
+colnames(UC_1_immune)[8] <- 'Number Not Fully Immunised'
+colnames(UC_1_immune)[9] <- 'Percent Fully Immunised'
+colnames(UC_1_immune)[10] <- 'Interpret With Caution'
+colnames(UC_1_immune)[1] <- 'State'
+```
+```{r}
+UC_1_immune[3] <- NULL
+UC_1_immune[3] <- NULL
+UC_1_immune[3] <- NULL
+UC_1_immune[3] <- NULL
+UC_1_immune[3] <- NULL
+UC_1_immune[3] <- NULL
+```
+```{r}
+immune_1 <- UC_1_immune
+Country_I_UC <- merge(Country, immune_1, by.x = 'SA3Code', by.y= 'SA3 Code')
+Income_Tot_I_UC <- merge(Income_Tot, immune_1, by.x = 'SA3_CODE_2016', by.y= 'SA3 Code')
+Religion_I_UC <- merge(Religion, immune_1, by.x = 'X', by.y= 'SA3 Code')
+Religion_I_UC$X <- as.character(Religion_I_UC$X)
+```
+
+```{r}
+R_names <- colnames(Religion_I_UC[2:16])
+```
+
+
+```{r}
+G_Religion_I <- data.frame(c(1:(323*15)))
+rows <- c(1:323)
+columns <- c(2:16)
+Religion_names <- c('Buddhism', 'Hinduism', 'Islam', 'Judaism', 'Sikhism', 'Aboriginal', 'Secular', 'Other', 'NotStated', 'JW', 'LDS', 'Catholic', 'EastChrist', 'Protestant', 'OtherChrist')
+i=-13
+for (rnum in rows) {
+  rn <- (rnum*14+i)
+  for (count in c(0:15)) {
+    G_Religion_I[(rn+count),1] <- as.character(Religion_I_UC[rnum,1])
+  }
+  i=i+1
+}
+
+i=-13
+for (rnum in rows) {
+  for (cnum in columns) {
+    rn <- (rnum*14+i)
+    G_Religion_I[(rn+cnum-2), 2] <- Religion_I_UC[rnum, cnum]
+  }
+  i=i+1
+}
+
+i=-13
+for (rnum in rows) {
+  for (count in c(0:14)) {
+  rn <- (rnum*14+i)
+   G_Religion_I[(rn+count),3] <- Religion_names[count+1]
+  }
+  i=i+1
+}
+
+i=-13
+for (rnum in rows) {
+  for (count in c(0:15)) {
+    rn <- (rnum*14+i)
+    G_Religion_I[(rn+count),4] <- Religion_I_UC[rnum,18]
+  }
+  i=i+1
+}
+
+colnames(G_Religion_I)[1] <- 'SA3Code'
+colnames(G_Religion_I)[2] <- 'Number of Religious Ppl'
+colnames(G_Religion_I)[3] <- 'Religion'
+colnames(G_Religion_I)[4] <- '% immunised'
+
+```
+
+```{r}
+library(ggplot2)
+Religion_sample <- subset(G_Religion_I, SA3Code < 10200)
+ggplot(data = Religion_sample, aes(x=SA3Code, y= `Number of Religious`, fill=Religion), ) + 
+  geom_bar(stat ='identity')
+Religion_sampleb <- subset(Religion_I_UC, as.character(X) < 10200)
+ggplot(data= Religion_sampleb, aes(x=X, y= `Percent Fully Immunised`), ) +
+  geom_bar(stat = 'identity')
+```
+```{r}
+Catholic_s <- list(Religion_I_UC[,1])
+Catholics_s <- cbind()
+```
+```{r, echo == FALSE, fig.height= 5}
+library(RColorBrewer)
+require(RColorBrewer)
+colour <- brewer.pal(15, 'Set3')
+Religion_I_UC$X <- factor(Religion_I_UC$X) 
+barplot(Religion_I_UC$Catholic, xlab= 'Area Code', ylab= 'Number of Catholics', main= 'Number of Catholics by SA3 Code', col= 'black')
+SA3_10701 <- as.numeric(Religion_I_UC[19, c(2:16)])
+Religion_names <- c('Buddhism', 'Hinduism', 'Islam', 'Judaism', 'Sikhism', 'Aboriginal', 'Secular', 'Other', 'NotStated', 'JW', 'LDS', 'Catholic', 'EastChrist', 'Protestant', 'OtherChrist')
+barplot(SA3_10701, ylab= 'Number of Identifying Persons', main= 'Distribution of Religious Beliefs in Sa3 Code 10701', names.arg = Religion_names, las= 2, col= colour)
+```
+
+```{r, echo == FALSE}
+barplot(Country_I_UC$Australia, xlab= 'Area Code', ylab= 'Number of People Born in Australia', main= 'Number of People by SA3 Code born in Australia')
+```
+```{r, fig.width= 20, echo == FALSE}
+library(RColorBrewer)
+require(RColorBrewer)
+colour <- brewer.pal(15, 'Set3')
+SA3_40101 <- as.numeric(Country_I_UC[233,2:51])
+Country_names <- c(colnames(Country_I_UC[2:51]))
+barplot(SA3_40101, ylab= 'Number of people born in country', main= 'Country of birth of Australia citizens', names.arg= Country_names, las= 2, col= colour)
+```
+
+```{r}
+G_Country_I <- data.frame(c(1:(323*52)))
+
+rows <- c(1:323)
+columns <- c(2:53)
+CountryNames <- colnames(Country_I_UC[2:53])
+i=-50
+for (rnum in rows) {
+  rn <- (rnum*51+i)
+  for (count in c(0:52)) {
+    G_Country_I[(rn+count),1] <- as.character(Country_I_UC[rnum,1])
+  }
+  i=i+1
+}
+
+i=-50
+for (rnum in rows) {
+  for (cnum in columns) {
+    rn <- (rnum*51+i)
+    G_Country_I[(rn+cnum-2), 2] <- Country_I_UC[rnum, cnum]
+  }
+  i=i+1
+}
+
+i=-50
+for (rnum in rows) {
+  for (count in c(0:51)) {
+  rn <- (rnum*51+i)
+   G_Country_I[(rn+count),3] <- CountryNames[count+1]
+  }
+  i=i+1
+}
+
+i=-50
+for (rnum in rows){
+  for (count in c(0:52)) {
+    rn <- (rnum*51+i)
+    G_Country_I[(rn+count),4] <- Country_I_UC[rnum,56]
+  }
+  i=i+1
+}
+
+colnames(G_Country_I)[1] <- 'SA3Code'
+colnames(G_Country_I)[2] <- 'Num. People born in country'
+colnames(G_Country_I)[3] <- 'Country'
+colnames(G_Country_I)[4] <- '% Immunised'
+
+```
+```{r}
+library(ggplot2)
+Country_sample <- subset(G_Country_I, SA3Code < 10200)
+ggplot(data = Country_sample, aes(x=SA3Code, y= `Num. People born in country`, fill=Country), ) + 
+  geom_bar(stat ='identity')
+Country_sample2 <- subset(Country_I_UC, as.character(SA3Code) < 10200)
+ggplot(data= Country_sample2, aes(x=SA3Code, y= `Percent Fully Immunised`), ) +
+  geom_bar(stat = 'identity')
+```
+
+
+
 
