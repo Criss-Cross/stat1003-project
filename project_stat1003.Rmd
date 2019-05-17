@@ -7,7 +7,6 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-
 ```{r, echo=FALSE, results='hide', message=FALSE}
 X2016Census_G09A_AUS_SA3 <- read.csv('~/Curtin/introduction to data science/project/R stuff/2016Census_G09A_AUS_SA3.csv')
 X2016Census_G09B_AUS_SA3 <- read.csv('~/Curtin/introduction to data science/project/R stuff/2016Census_G09B_AUS_SA3.csv')
@@ -467,6 +466,68 @@ ggplot(data= Country_sample2, aes(x=SA3Code, y= `Percent Fully Immunised`), ) +
   geom_bar(stat = 'identity')
 ```
 
+```{r}
+G_Country_I_NAus <- data.frame(c(1:(323*49)))
+aus <- Country_I_UC[3]
+afgh <- Country_I_UC[2]
+Country_I_UC_NAus <- Country_I_UC
+Country_I_UC_NAus[2] <- aus
+Country_I_UC_NAus[3] <- afgh
+names <- colnames(Country_I_UC[4:51])
+Country_names <- c("Afghanistan", names)
 
+rows <- c(1:323)
+columns <- c(3:51)
+CountryNames <- colnames(Country_I_UC[3:51])
+i=-47
+for (rnum in rows) {
+  rn <- (rnum*48+i)
+  for (count in c(0:49)) {
+    G_Country_I_NAus[(rn+count),1] <- as.character(Country_I_UC_NAus[rnum,1])
+  }
+  i=i+1
+}
 
+i=-47
+for (rnum in rows) {
+  for (cnum in columns) {
+    rn <- (rnum*48+i)
+    G_Country_I_NAus[(rn+cnum-3), 2] <- Country_I_UC_NAus[rnum, cnum]
+  }
+  i=i+1
+}
 
+i=-47
+for (rnum in rows) {
+  for (count in c(0:48)) {
+  rn <- (rnum*48+i)
+   G_Country_I_NAus[(rn+count),3] <- Country_names[count+1]
+  }
+  i=i+1
+}
+
+i=-47
+for (rnum in rows){
+  for (count in c(0:49)) {
+    rn <- (rnum*48+i)
+    G_Country_I_NAus[(rn+count),4] <- Country_I_UC_NAus[rnum,56]
+  }
+  i=i+1
+}
+
+colnames(G_Country_I_NAus)[1] <- 'SA3Code'
+colnames(G_Country_I_NAus)[2] <- 'Num. People born in country'
+colnames(G_Country_I_NAus)[3] <- 'Country'
+colnames(G_Country_I_NAus)[4] <- '% Immunised'
+
+```
+```{r}
+library(ggplot2)
+Country_sample <- subset(G_Country_I_NAus,SA3Code < 10300 & SA3Code > 10200)
+countryPlot <- ggplot(data = Country_sample, aes(x=SA3Code, y= `Num. People born in country`, fill=Country), ) + 
+  geom_bar(stat ='identity')
+countryPlot + scale_fill_manual(values=c("aquamarine", "aquamarine4", "azure", "blue", "blue4", "blueviolet", "brown", "cadetblue", "cadetblue1", "chartreuse", "chartreuse3", "chocolate1", "coral2", "cornflowerblue", "cyan", "darkcyan", "darkgoldenrod1", "darkgreen", "darkmagenta", "darkorchid1", "darkred", "darkseagreen2", "deeppink", "darkviolet", "deepskyblue1", "deepskyblue4", "firebrick", "forestgreen", "gold", "gold4", "gray18", "gray49", "gray74", "gray91", "green", "green4","hotpink", "hotpink4", "indianred2", "khaki", "lavenderblush2", "lightgreen", "lightslateblue", "maroon2", "mediumaquamarine", "red", "plum1", "purple4", "royalblue"))
+Country_sample2 <- subset(Country_I_UC_NAus, as.character(SA3Code) < 10300 & as.character(SA3Code) > 10200)
+ggplot(data= Country_sample2, aes(x=SA3Code, y= `Percent Fully Immunised`), ) +
+  geom_bar(stat = 'identity')
+```
