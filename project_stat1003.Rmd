@@ -531,3 +531,74 @@ Country_sample2 <- subset(Country_I_UC_NAus, as.character(SA3Code) < 10300 & as.
 ggplot(data= Country_sample2, aes(x=SA3Code, y= `Percent Fully Immunised`), ) +
   geom_bar(stat = 'identity')
 ```
+```{r}
+library(ggplot2)
+for (i in 0:8){
+  Country_sample <- subset(G_Country_I_NAus,SA3Code < (20100 + 100*i) & SA3Code > (20000 + 100*i))
+countryPlot <- ggplot(data = Country_sample, aes(x=SA3Code, y= `Num. People born in country`, fill=Country), ) + 
+  geom_bar(stat ='identity')
+countryPlot <- countryPlot + scale_fill_manual(values=c("aquamarine", "aquamarine4", "azure", "blue", "blue4", "blueviolet", "brown", "cadetblue", "cadetblue1", "chartreuse", "chartreuse3", "chocolate1", "coral2", "cornflowerblue", "cyan", "darkcyan", "darkgoldenrod1", "darkgreen", "darkmagenta", "darkorchid1", "darkred", "darkseagreen2", "deeppink", "darkviolet", "deepskyblue1", "deepskyblue4", "firebrick", "forestgreen", "gold", "gold4", "gray18", "gray49", "gray74", "gray91", "green", "green4","hotpink", "hotpink4", "indianred2", "khaki", "lavenderblush2", "lightgreen", "lightslateblue", "maroon2", "mediumaquamarine", "red", "plum1", "purple4", "royalblue"))
+Country_sample2 <- subset(Country_I_UC_NAus, as.character(SA3Code) < (20100 + 100*i) & as.character(SA3Code) > (20000 + 100*i))
+countryImmune <- ggplot(data= Country_sample2, aes(x=SA3Code, y= `Percent Fully Immunised`), ) +
+  geom_bar(stat = 'identity')
+print(countryPlot)
+print(countryImmune)
+}
+```
+
+```{r}
+library(ggplot2)
+for (i in 0:8){
+  Country_sample <- subset(G_Country_I_NAus,SA3Code < (21100 + 100*i) & SA3Code > (21000 + 100*i))
+countryPlot <- ggplot(data = Country_sample, aes(x=SA3Code, y= `Num. People born in country`, fill=Country), ) + 
+  geom_bar(stat ='identity')
+countryPlot <- countryPlot + scale_fill_manual(values=c("aquamarine", "aquamarine4", "azure", "blue", "blue4", "blueviolet", "brown", "cadetblue", "cadetblue1", "chartreuse", "chartreuse3", "chocolate1", "coral2", "cornflowerblue", "cyan", "darkcyan", "darkgoldenrod1", "darkgreen", "darkmagenta", "darkorchid1", "darkred", "darkseagreen2", "deeppink", "darkviolet", "deepskyblue1", "deepskyblue4", "firebrick", "forestgreen", "gold", "gold4", "gray18", "gray49", "gray74", "gray91", "green", "green4","hotpink", "hotpink4", "indianred2", "khaki", "lavenderblush2", "lightgreen", "lightslateblue", "maroon2", "mediumaquamarine", "red", "plum1", "purple4", "royalblue"))
+Country_sample2 <- subset(Country_I_UC_NAus, as.character(SA3Code) < (21100 + 100*i) & as.character(SA3Code) > (21000 + 100*i))
+countryImmune <- ggplot(data= Country_sample2, aes(x=SA3Code, y= `Percent Fully Immunised`), ) +
+  geom_bar(stat = 'identity')
+print(countryPlot)
+print(countryImmune)
+}
+```
+
+```{r}
+library(ggplot2)
+for (i in 0:8){
+  Country_sample <- subset(G_Country_I_NAus,SA3Code < (30100 + 100*i) & SA3Code > (30000 + 100*i))
+countryPlot <- ggplot(data = Country_sample, aes(x=SA3Code, y= `Num. People born in country`, fill=Country), ) + 
+  geom_bar(stat ='identity')
+countryPlot <- countryPlot + scale_fill_manual(values=c("aquamarine", "aquamarine4", "azure", "blue", "blue4", "blueviolet", "brown", "cadetblue", "cadetblue1", "chartreuse", "chartreuse3", "chocolate1", "coral2", "cornflowerblue", "cyan", "darkcyan", "darkgoldenrod1", "darkgreen", "darkmagenta", "darkorchid1", "darkred", "darkseagreen2", "deeppink", "darkviolet", "deepskyblue1", "deepskyblue4", "firebrick", "forestgreen", "gold", "gold4", "gray18", "gray49", "gray74", "gray91", "green", "green4","hotpink", "hotpink4", "indianred2", "khaki", "lavenderblush2", "lightgreen", "lightslateblue", "maroon2", "mediumaquamarine", "red", "plum1", "purple4", "royalblue"))
+Country_sample2 <- subset(Country_I_UC_NAus, as.character(SA3Code) < (30100 + 100*i) & as.character(SA3Code) > (30000 + 100*i))
+countryImmune <- ggplot(data= Country_sample2, aes(x=SA3Code, y= `Percent Fully Immunised`), ) +
+  geom_bar(stat = 'identity')
+print(countryPlot)
+print(countryImmune)
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+```{r}
+chinese <- subset(Country_I_UC, China > 200)
+plot(chinese$`Percent Fully Immunised`, chinese$China, xlab= 'percent fully immunised', ylab= 'number of chinese people' )
+mean(chinese$`Percent Fully Immunised`)
+italians <- subset(Country_I_UC, Italy > 200)
+plot(italians$`Percent Fully Immunised`, italians$Italy, xlab= 'percent fully immunised', ylab= 'number of italian people' )
+mean(italians$`Percent Fully Immunised`)
+Vietnamese <- subset(Country_I_UC, Vietnam > 200)
+plot(Vietnamese$`Percent Fully Immunised`, Vietnamese$Vietnam, xlab= 'percent fully immunised', ylab= 'number of chinese people' )
+```
+```{r}
+plot(Country_I_UC$`Percent Fully Immunised`, Country_I_UC$Total, xla= 'percent fully immunised', ylab= 'total population')
+```
+
